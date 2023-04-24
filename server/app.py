@@ -17,8 +17,6 @@ api = NewsApiClient(api_key='d060d091ddeb4a18af8a7907ce4b88be')
 def index():
     # 主程式
     response = requests.get('https://newsapi.org/v2/top-headlines?country=tw&apiKey=d060d091ddeb4a18af8a7907ce4b88be').json()
-    # processed_response
-    # return render_template("index.html", response=response)
     return response
   
 if __name__ == "__main__":
