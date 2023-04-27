@@ -22,7 +22,7 @@ function Headline() {
                 <CardHeader>
                 <Flex spacing='4'>
                     <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
-                    <Avatar alt='新聞媒體Logo' src='https://bit.ly/sage-adebayo' />
+                    <Avatar alt='新聞媒體Logo' src={news.logo_url} />
             
                     <Box>
                         <Heading size='sm'>{news.source_id}</Heading>
