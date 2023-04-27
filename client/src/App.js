@@ -5,20 +5,6 @@ import Navbar from "./Navbar";
 import Headline from './Headline';
 
 function App() {
-
-  // const [headlines, setHeadlines] = useState();
-
-  // useEffect(() => {
-  //   fetch("/headlines")
-  //   .then((response) => response.json()
-  //   .then((data) => {
-  //     setHeadlines(data);
-  //     console.log(data);
-  //   })
-  //   )
-  // }, [])
-  
-  // const headlinesNodes = headlines.articles.map((news) => <div>{news.title}</div>)
   
   return (
     <Container maxW='120ch' centerContent
@@ -30,7 +16,6 @@ function App() {
       '2xl': '96em', // 1536px
      }}>
       <Navbar />
-      {/* {headlinesNodes} */}
       <Headline />
     </Container>
   )
