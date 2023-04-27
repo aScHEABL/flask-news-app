@@ -1,6 +1,6 @@
 import './global.css'
 import { Container  } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Navbar from "./Navbar";
 import Headline from './Headline';
 
