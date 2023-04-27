@@ -63,35 +63,35 @@ function Navbar() {
                 md: '48em', // 768px
                 
             }}>
-                <BreadcrumbItem isCurrentPage minW='max-content'>
+                <BreadcrumbItem isCurrentPage value='headlines' minW='max-content'>
                     <BreadcrumbLink href='#'>頭條新聞</BreadcrumbLink>
                 </BreadcrumbItem>
 
-                <BreadcrumbItem>
+                <BreadcrumbItem value='politics'>
                     <BreadcrumbLink href='#' minW='max-content'>政治與政策</BreadcrumbLink>
                 </BreadcrumbItem>
 
-                <BreadcrumbItem>
+                <BreadcrumbItem value='world'>
                     <BreadcrumbLink href='#' minW='max-content'>全球與區域</BreadcrumbLink>
                 </BreadcrumbItem>
 
-                <BreadcrumbItem>
-                    <BreadcrumbLink href='#' minW='max-content'>社會與公眾</BreadcrumbLink>
+                <BreadcrumbItem value='science'>
+                    <BreadcrumbLink href='#' minW='max-content'>科學與學術</BreadcrumbLink>
                 </BreadcrumbItem>
 
-                <BreadcrumbItem>
+                <BreadcrumbItem value='business'>
                     <BreadcrumbLink href='#' minW='max-content'>財經與商業</BreadcrumbLink>
                 </BreadcrumbItem>
 
-                <BreadcrumbItem>
-                    <BreadcrumbLink href='#' minW='max-content'>藝術與文化</BreadcrumbLink>
+                <BreadcrumbItem value='sports'>
+                    <BreadcrumbLink href='#' minW='max-content'>運動與競賽</BreadcrumbLink>
                 </BreadcrumbItem>
 
-                <BreadcrumbItem>
-                    <BreadcrumbLink href='#' minW='max-content'>教育與知識</BreadcrumbLink>
+                <BreadcrumbItem value='technology'>
+                    <BreadcrumbLink href='#' minW='max-content'>科技與科研</BreadcrumbLink>
                 </BreadcrumbItem>
 
-                <BreadcrumbItem>
+                <BreadcrumbItem value='entertainment'>
                     <BreadcrumbLink href='#' minW='max-content'>生活與休閒</BreadcrumbLink>
                 </BreadcrumbItem>
             </Breadcrumb>
