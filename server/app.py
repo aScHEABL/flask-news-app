@@ -1,22 +1,26 @@
 # 匯入相關套件
 import requests
 from flask import Flask, render_template
-from newsapi import NewsApiClient
 from flask_cors import CORS
 
 # 初始化Flask
 app = Flask(__name__)
 CORS(app)
-  
-# 初始化API 
-api = NewsApiClient(api_key='d060d091ddeb4a18af8a7907ce4b88be')
-  
 
-@app.route('/defaultView', methods=['GET', 'POST'])
+source_list = ['ettoday', ]
+
+api_key = '?apikey=pub_21210c839808375b71b7c59167110c9e3ac44'
+country = '&country='
+language = '&language='
+domain = '&domain='
+api_url = 'https://newsdata.io/api/1/news'
+
+headlines_tw = f'{api_url}{api_key}{country}tw{language}zh{domain}'
+
+@app.route('/headlines', methods=['GET', 'POST'])
 @app.route('/', methods=['GET', 'POST'])
-def index():
-    # 主程式
-    response = requests.get('https://newsapi.org/v2/top-headlines?country=tw&apiKey=d060d091ddeb4a18af8a7907ce4b88be').json()
+def headlines():
+    response = requests.get(headlines_tw).json()
     return response
   
 if __name__ == "__main__":
