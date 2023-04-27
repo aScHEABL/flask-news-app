@@ -71,7 +71,7 @@ function Headline() {
     )
 
     return (
-        <Flex wrap='wrap'>
+        <Flex wrap='wrap' justify='center' gap='6'>
             { headlineNodes }
         </Flex>
     )
