@@ -5,6 +5,19 @@ from flask_cors import CORS
 from bs4 import BeautifulSoup
 import urllib.request
 import json
+from googlesearch import search
+
+def get_website_url(website_name):
+    # Search for the website using Google
+    query = f"{website_name} taiwan"
+    urls = list(search(query, num_results=10))
+
+    # Look for the first URL that contains the website name
+    for url in urls:
+        if website_name in url:
+            return url
+
+    return None
 
 def extract_preview_image_url(url):
     # Set a user agent to make the request appear as if it is coming from a web browser
@@ -30,12 +43,9 @@ def extract_preview_image_url(url):
 app = Flask(__name__)
 CORS(app)
 
-# source_list = ['ettoday', ]
-
 api_key = '?apikey=pub_21210c839808375b71b7c59167110c9e3ac44'
 country = '&country='
 language = '&language='
-# domain = '&domain='
 api_url = 'https://newsdata.io/api/1/news'
 
 headlines_tw = f'{api_url}{api_key}{country}tw{language}zh'
@@ -48,7 +58,11 @@ def headlines():
     json_dict = json.loads(text)
 
     for news in json_dict['results']:
+        # Set news.image_url in every returned news source
         news['image_url'] = extract_preview_image_url(news['link'])
+        # Set news.source_link in every returned news source
+        news['source_url'] = get_website_url(news['source_id'])
+        news['logo_url'] = 'https://logo.clearbit.com/' + news['source_url'] + '?size=600'
     
     return json_dict
   
