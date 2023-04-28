@@ -2,7 +2,7 @@ import './global.css'
 import { Container  } from "@chakra-ui/react";
 import React from "react";
 import Navbar from "./Navbar";
-import Headline from './Headline';
+import General from './General';
 
 function App() {
   
@@ -16,7 +16,7 @@ function App() {
       '2xl': '96em', // 1536px
      }}>
       <Navbar />
-      <Headline />
+      <General />
     </Container>
   )
 }

@@ -6,26 +6,26 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 
 let ifFetchSucceed = true;
 
-function Headline() {
-    const [headlines, setHeadlines] = useState({results: []});
+function General() {
+    const [general, setGeneral] = useState({articles: []});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      fetch("/headlines")
+      fetch("/general")
       .then((response) => response.json()
       .then((data) => {
-          if (data.status !== 'success') {
-            ifFetchSucceed = false
-            return;
-        }
-        setHeadlines(data);
+        //   if (data.status !== 'success') {
+        //     ifFetchSucceed = false
+        //     return;
+        // }
+        setGeneral(data);
         setLoading(false);
         console.log(data);
       })
       )
     }, [])
   
-    const headlineNodes = headlines.results.map((news) => 
+    const headlineNodes = general.articles.map((news) => 
             <Card maxW='md'>
                 <CardHeader>
                 <Flex spacing='4'>
@@ -33,8 +33,8 @@ function Headline() {
                     <Avatar alt='新聞媒體Logo' src={news.logo_url} />
             
                     <Box>
-                        <Heading size='sm'>{news.source_id}</Heading>
-                        <Text>{news.pubDate}</Text>
+                        <Heading size='sm'>{news.source.name}</Heading>
+                        <Text>{news.publishedAt}</Text>
                     </Box>
                     </Flex>
                     <IconButton
@@ -52,7 +52,7 @@ function Headline() {
                 </CardBody>
                 <Image
                 objectFit='cover'
-                src={news.image_url}
+                src={news.image}
                 alt='新聞圖片'
                 />
             
@@ -104,4 +104,4 @@ function Headline() {
     )
 }
 
-export default Headline;
+export default General;
