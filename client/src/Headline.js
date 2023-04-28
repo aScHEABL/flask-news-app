@@ -8,6 +8,7 @@ let ifFetchSucceed = true;
 
 function Headline() {
     const [headlines, setHeadlines] = useState({results: []});
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
       fetch("/headlines")
@@ -18,6 +19,7 @@ function Headline() {
             return;
         }
         setHeadlines(data);
+        setLoading(false);
         console.log(data);
       })
       )
@@ -77,11 +79,25 @@ function Headline() {
     )
 
     return (
-        (ifFetchSucceed) ?
+        // (ifFetchSucceed) ?
+        // <Flex wrap='wrap' justify='center' gap='6'>
+        //     { headlineNodes }
+        // </Flex>
+        // : <Box>
+        //     <h1>Fetch data from api failed!</h1>
+        //     <h1>無法從API獲取資料!</h1>
+        // </Box>
+
+        (loading) ? 
+        <Box>
+            <h1>Loading...please wait a while...</h1>
+            <h1>資源加載中...請稍後</h1>
+        </Box> :
+        (ifFetchSucceed) ? 
         <Flex wrap='wrap' justify='center' gap='6'>
             { headlineNodes }
-        </Flex>
-        : <Box>
+        </Flex> :
+         <Box>
             <h1>Fetch data from api failed!</h1>
             <h1>無法從API獲取資料!</h1>
         </Box>
