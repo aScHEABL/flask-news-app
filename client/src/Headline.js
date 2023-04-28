@@ -4,6 +4,8 @@ import { Flex, Card, CardHeader, Avatar, Box, Heading
 import { BiLike, BiChat, BiShare } from 'react-icons/bi';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
+let ifFetchSucceed = true;
+
 function Headline() {
     const [headlines, setHeadlines] = useState({results: []});
 
@@ -11,6 +13,10 @@ function Headline() {
       fetch("/headlines")
       .then((response) => response.json()
       .then((data) => {
+          if (!data.status === 'success') {
+            ifFetchSucceed = false
+            return;
+        }
         setHeadlines(data);
         console.log(data);
       })
@@ -71,9 +77,14 @@ function Headline() {
     )
 
     return (
+        (ifFetchSucceed) ?
         <Flex wrap='wrap' justify='center' gap='6'>
             { headlineNodes }
         </Flex>
+        : <Box>
+            <h1>Fetch data from api failed!</h1>
+            <h1>無法從API獲取資料!</h1>
+        </Box>
     )
 }
 
