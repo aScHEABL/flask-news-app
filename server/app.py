@@ -5,7 +5,6 @@ from flask_cors import CORS
 from bs4 import BeautifulSoup
 import urllib.request
 import json
-from googlesearch import search
 
 # Global variables
 api_key = '?apikey=pub_21210c839808375b71b7c59167110c9e3ac44'
@@ -15,16 +14,14 @@ language = '&language='
 api_domain = 'https://newsdata.io/api/1/news'
 
 def get_website_url(website_name):
-    # Search for the website using Google
-    query = f"{website_name} taiwan"
-    urls = list(search(query, num_results=10))
-
-    # Look for the first URL that contains the website name
-    for url in urls:
-        if website_name in url:
-            return url
-
-    return None
+    response = requests.get(
+        f'https://autocomplete.clearbit.com/v1/companies/suggest?query={website_name}')
+    data = response.json()
+    if len(data) > 0:
+        domain = f"https://{data[0]['domain']}"
+        return domain
+    else:
+        return None
 
 def get_preview_image_url(url):
     # Set a user agent to make the request appear as if it is coming from a web browser
@@ -83,8 +80,8 @@ def get_response_from_api(news_category):
         # Set news.image_url in every returned news source
         news['image_url'] = get_preview_image_url(news['link'])
         # Set news.source_link in every returned news source
-        # news['source_url'] = get_website_url(news['source_id'])
-        # news['logo_url'] = 'https://logo.clearbit.com/' + news['source_url'] + '?size=600'
+        news['source_url'] = get_website_url(news['source_id'])
+        news['logo_url'] = 'https://logo.clearbit.com/' + news['source_url'] + '?size=600'
 
     return json_dict
 
