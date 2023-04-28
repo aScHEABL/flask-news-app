@@ -13,7 +13,7 @@ function Headline() {
       fetch("/headlines")
       .then((response) => response.json()
       .then((data) => {
-          if (!data.status === 'success') {
+          if (data.status !== 'success') {
             ifFetchSucceed = false
             return;
         }
