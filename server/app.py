@@ -86,7 +86,7 @@ def get_response_from_api(news_category):
         # news['source_url'] = get_website_url(news['source_id'])
         # news['logo_url'] = 'https://logo.clearbit.com/' + news['source_url'] + '?size=600'
 
-    return json_dictget_respopoliticsnse_from_api
+    return json_dict
 
 # 初始化Flask
 app = Flask(__name__)
@@ -110,7 +110,7 @@ def entertainment():
     return get_response_from_api('entertainment')
 
 @app.route('/environment', methods=['GET'])
-def entertainment():
+def environment():
     return get_response_from_api('environment')
 
 @app.route('/food', methods=['GET'])
@@ -118,7 +118,7 @@ def food():
     return get_response_from_api('food')
 
 @app.route('/health', methods=['GET'])
-def food():
+def health():
     return get_response_from_api('health')
 
 @app.route('/politics', methods=['GET'])
@@ -126,23 +126,23 @@ def politics():
     return get_response_from_api('politics')
 
 @app.route('/science', methods=['GET'])
-def food():
+def science():
     return get_response_from_api('science')
 
 @app.route('/sports', methods=['GET'])
-def food():
+def sports():
     return get_response_from_api('sports')
 
 @app.route('/technology', methods=['GET'])
-def food():
+def technology():
     return get_response_from_api('technology')
 
 @app.route('/tourism', methods=['GET'])
-def food():
+def tourism():
     return get_response_from_api('tourism')
 
 @app.route('/world', methods=['GET'])
-def food():
+def world():
     return get_response_from_api('world')
 
 
