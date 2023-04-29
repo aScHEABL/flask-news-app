@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import React from "react";
 import { Flex, 
     Container, 
@@ -64,15 +65,15 @@ function Navbar() {
                 
             }}>
                 <BreadcrumbItem isCurrentPage value='headlines' minW='max-content'>
-                    <BreadcrumbLink href='#'>頭條新聞</BreadcrumbLink>
-                </BreadcrumbItem>
-
-                <BreadcrumbItem value='politics'>
-                    <BreadcrumbLink href='#' minW='max-content'>政治與政策</BreadcrumbLink>
+                    <BreadcrumbLink as={Link} to='/'>綜合新聞</BreadcrumbLink>
                 </BreadcrumbItem>
 
                 <BreadcrumbItem value='world'>
-                    <BreadcrumbLink href='#' minW='max-content'>全球與區域</BreadcrumbLink>
+                    <BreadcrumbLink as={Link} to='/world' minW='max-content'>全球與區域</BreadcrumbLink>
+                </BreadcrumbItem>
+
+                <BreadcrumbItem value='politics'>
+                    <BreadcrumbLink as={Link} to='/nation' minW='max-content'>政治與政策</BreadcrumbLink>
                 </BreadcrumbItem>
 
                 <BreadcrumbItem value='science'>

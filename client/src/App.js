@@ -2,7 +2,9 @@ import './global.css'
 import { Container  } from "@chakra-ui/react";
 import React from "react";
 import Navbar from "./Navbar";
-import General from './General';
+import General from './components/General';
+import { Route, Routes } from "react-router-dom";
+import World from './components/World';
 
 function App() {
   
@@ -16,7 +18,10 @@ function App() {
       '2xl': '96em', // 1536px
      }}>
       <Navbar />
-      <General />
+      <Routes>
+        <Route path='/' element={<General />} />
+        <Route path='/world' element={<World />} />
+      </Routes>
     </Container>
   )
 }
