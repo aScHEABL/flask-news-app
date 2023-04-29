@@ -7,7 +7,7 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 let ifFetchSucceed = true;
 
 function General() {
-    const [general, setGeneral] = useState({articles: []});
+    const [generalNews, setGeneralNews] = useState({articles: []});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -18,14 +18,14 @@ function General() {
         //     ifFetchSucceed = false
         //     return;
         // }
-        setGeneral(data);
+        setGeneralNews(data);
         setLoading(false);
         console.log(data);
       })
       )
     }, [])
   
-    const headlineNodes = general.articles.map((news) => 
+    const nodes = generalNews.articles.map((news) => 
             <Card maxW='md'>
                 <CardHeader>
                 <Flex spacing='4'>
@@ -79,15 +79,6 @@ function General() {
     )
 
     return (
-        // (ifFetchSucceed) ?
-        // <Flex wrap='wrap' justify='center' gap='6'>
-        //     { headlineNodes }
-        // </Flex>
-        // : <Box>
-        //     <h1>Fetch data from api failed!</h1>
-        //     <h1>無法從API獲取資料!</h1>
-        // </Box>
-
         (loading) ? 
         <Box>
             <h1>Loading...please wait a while...</h1>
@@ -95,7 +86,7 @@ function General() {
         </Box> :
         (ifFetchSucceed) ? 
         <Flex wrap='wrap' justify='center' gap='6'>
-            { headlineNodes }
+            { nodes }
         </Flex> :
          <Box>
             <h1>Fetch data from api failed!</h1>
