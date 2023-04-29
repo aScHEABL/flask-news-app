@@ -2,8 +2,6 @@
 import requests
 from flask import Flask
 from flask_cors import CORS
-from bs4 import BeautifulSoup
-import urllib.request
 import json
 
 # Global variables
