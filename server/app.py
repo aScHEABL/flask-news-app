@@ -11,12 +11,12 @@ import json
 app = Flask(__name__)
 CORS(app)
 
+# Questionable code, deprecrated
 def get_news_provider_name(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
 
-    website_name = soup.find('meta', property='og:site_name')['content']
-    return website_name
+    return soup.find('meta', property='og:site_name')['content']
 
 def get_news_provider(url):
     domain = urlparse(url).netloc
@@ -62,7 +62,8 @@ def fetch_data_from_api(news_category):
         news['urlToImage'] = get_preview_image_url(news['url'])
         news['news_provider_url'] = get_news_provider(news['url'])
         news['news_provider_logo'] = 'https://logo.clearbit.com/' + news['news_provider_url'] + '?size=600'
-        news['provider_name'] = get_news_provider_name(news['url'])
+        # Questionable code, deprecrated
+        # news['provider_name'] = get_news_provider_name(news['url'])
 
     return json_dict
 
