@@ -7,7 +7,7 @@ import urllib.request
 from urllib.parse import urlparse
 import json
 
-# 初始化Flask
+# 初始化Flask，並且允許Cross-Origin Resource Sharing
 app = Flask(__name__)
 CORS(app)
 

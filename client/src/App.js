@@ -7,7 +7,7 @@ import General from './components/General';
 function App() {
   
   return (
-    <Container maxW='100ch' centerContent
+    <Container maxW='120ch' centerContent
     w={{ 
       sm: '30em', // 480px
       md: '48em', // 768px
