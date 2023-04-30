@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.css": "/flask-news-app/static/css/main.31d6cfe0.css",
+    "main.js": "/flask-news-app/static/js/main.b930723a.js",
+    "index.html": "/flask-news-app/index.html",
+    "main.b930723a.js.map": "/flask-news-app/static/js/main.b930723a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31d6cfe0.css",
+    "static/js/main.b930723a.js"
+  ]
+}
