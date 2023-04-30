@@ -5,88 +5,35 @@ from flask_cors import CORS
 import json
 
 # Global variables
-api_key = '?apikey=f09453350077ccf707171c573c8b0ec0'
-category = '&category='
-country = '&country='
-language = '&lang='
-api_domain = 'https://gnews.io/api/v4/top-headlines'
-    
-def get_response_from_api(news_category):
-    api_url = f'{api_domain}{api_key}{country}tw{language}zh'
-    match news_category:
-        case 'search':
-            print()
-        case 'general':
-            api_url = api_url + f'{category}general'
-        case 'world':
-            api_url = api_url + f'{category}world'
-        case 'nation':
-            api_url = api_url + f'{category}nation'
-        case 'business':
-            api_url = api_url + f'{category}business'
-        case 'technology':
-            api_url = api_url + f'{category}technology'
-        case 'entertainment':
-            api_url = api_url + f'{category}entertainment'
-        case 'sports':
-            api_url = api_url + f'{category}sports'
-        case 'science':
-            api_url = api_url + f'{category}science'
-        case 'health':
-            api_url = api_url + f'{category}health'
+def extract_news(category):
+    google_news_domain = 'https://news.google.com/rss/topics/'
+    lang_region = '?hl=zh-TW&gl=TW&ceid=TW:zh-Hant'
+    category_id = {
+        'nation': 'CAAqJQgKIh9DQkFTRVFvSUwyMHZNRFptTXpJU0JYcG9MVlJYS0FBUAE',
+        'global': 'CAAqKggKIiRDQkFTRlFvSUwyMHZNRGx1YlY4U0JYcG9MVlJYR2dKVVZ5Z0FQAQ',
+        'region': 'CAAqHAgKIhZDQklTQ2pvSWJHOWpZV3hmZGpJb0FBUAE',
+        'business': 'CAAqKggKIiRDQkFTRlFvSUwyMHZNRGx6TVdZU0JYcG9MVlJYR2dKVVZ5Z0FQAQ',
+        'sci_tech': 'CAAqLAgKIiZDQkFTRmdvSkwyMHZNR1ptZHpWbUVnVjZhQzFVVnhvQ1ZGY29BQVAB',
+        'entertainment': 'CAAqKggKIiRDQkFTRlFvSUwyMHZNREpxYW5RU0JYcG9MVlJYR2dKVVZ5Z0FQAQ',
+        'sports': 'CAAqKggKIiRDQkFTRlFvSUwyMHZNRFp1ZEdvU0JYcG9MVlJYR2dKVVZ5Z0FQAQ',
+        'health'
+    }
+    news_url = ''
+    if category == 'top':
+        news_url = f'https://news.google.com/rss{lang_region}'
+    else:
+        news_url = f'{google_news_domain}{category_id[category]}{lang_region}'
 
-    response = requests.get(api_url).text
-    json_dict = json.loads(response)
+    return news_url
 
-    for news in json_dict['articles']:
-        news['logo_url'] = 'https://logo.clearbit.com/' + news['source']['url'] + '?size=600'
 
-    return json_dict
+
 
 # 初始化Flask
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/search+results', methods=['GET', 'POST'])
-def search():
-     return get_response_from_api('search')
 
-@app.route('/general', methods=['GET'])
-@app.route('/', methods=['GET'])
-def general():
-    return get_response_from_api('general')
-
-@app.route('/world', methods=['GET'])
-def world():
-    return get_response_from_api('world')
-
-@app.route('/nation', methods=['GET'])
-def nation():
-    return get_response_from_api('nation')
-
-@app.route('/business', methods=['GET'])
-def business():
-    return get_response_from_api('business')
-
-@app.route('/technology', methods=['GET'])
-def technology():
-    return get_response_from_api('technology')
-
-@app.route('/entertainment', methods=['GET'])
-def entertainment():
-    return get_response_from_api('entertainment')
-
-@app.route('/sports', methods=['GET'])
-def sports():
-    return get_response_from_api('sports')
-
-@app.route('/science', methods=['GET'])
-def science():
-    return get_response_from_api('science')
-
-@app.route('/health', methods=['GET'])
-def health():
-    return get_response_from_api('health')
 
   
 if __name__ == "__main__":
