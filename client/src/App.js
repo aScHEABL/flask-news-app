@@ -1,23 +1,10 @@
 import './global.css'
-import { Container, Box, Center } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Container } from "@chakra-ui/react";
+import React from "react";
 import Navbar from "./Navbar";
+import General from './components/General';
 
 function App() {
-
-  const [headlines, setHeadlines] = useState();
-
-  useEffect(() => {
-    fetch("/defaultView")
-    .then((response) => response.json()
-    .then((data) => {
-      setHeadlines(data);
-      console.log(data);
-    })
-    )
-  }, [])
-  
-  const headlinesNodes = headlines.articles.map((news) => <div>{news.title}</div>)
   
   return (
     <Container maxW='100ch' centerContent
@@ -29,7 +16,7 @@ function App() {
       '2xl': '96em', // 1536px
      }}>
       <Navbar />
-      {headlinesNodes}
+      <General />
       
     </Container>
   )
