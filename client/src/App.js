@@ -2,7 +2,14 @@ import './global.css'
 import { Container } from "@chakra-ui/react";
 import React from "react";
 import Navbar from "./Navbar";
+import { Route, Routes } from "react-router-dom";
 import General from './components/General';
+import Science from './components/Science';
+import Tech from './components/Tech';
+import Sports from './components/Sports';
+import Business from './components/Business';
+import Entertainment from './components/Entertainment';
+import Health from './components/Health';
 
 function App() {
   
@@ -16,7 +23,16 @@ function App() {
       '2xl': '96em', // 1536px
      }}>
       <Navbar />
-      <General />
+      <Routes>
+        <Route path="/" element={<General />} />
+        <Route path="/general" element={<General />} />
+        <Route path='/science' element={<Science />} />
+        <Route path='/technology' element={<Tech />} />
+        <Route path='/sports' element={<Sports />} />
+        <Route path='/business' element={<Business />} />
+        <Route path='/entertainment' element={<Entertainment />} />
+        <Route path='/health' element={<Health />} />
+      </Routes>
       
     </Container>
   )

@@ -7,26 +7,26 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 
 let ifFetchSucceed = true;
 
-function General() {
-    const [news, setNews] = useState({articles: []});
+function Business() {
+    const [businessNews, setBusinessNews] = useState({articles: []});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      fetch("/general")
+      fetch("/business")
       .then((response) => response.json()
       .then((data) => {
           if (data.status !== "ok") {
             ifFetchSucceed = false
             return;
         }
-        setNews(data);
+        setBusinessNews(data);
         setLoading(false);
         console.log(data);
       })
       )
     }, [])
   
-    const nodes = news.articles.map((news) => 
+    const nodes = businessNews.articles.map((news) => 
             <Card maxW='md'>
                 <CardHeader>
                 <Flex spacing='4'>
@@ -107,4 +107,4 @@ function General() {
     )
 }
 
-export default General;
+export default Business;

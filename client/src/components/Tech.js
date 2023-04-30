@@ -7,15 +7,15 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 
 let ifFetchSucceed = true;
 
-function General() {
+function Tech() {
     const [news, setNews] = useState({articles: []});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      fetch("/general")
+      fetch("/technology")
       .then((response) => response.json()
       .then((data) => {
-          if (data.status !== "ok") {
+          if (data.status !== 200) {
             ifFetchSucceed = false
             return;
         }
@@ -107,4 +107,4 @@ function General() {
     )
 }
 
-export default General;
+export default Tech;

@@ -7,12 +7,12 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 
 let ifFetchSucceed = true;
 
-function General() {
+function Health() {
     const [news, setNews] = useState({articles: []});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      fetch("/general")
+      fetch("/health")
       .then((response) => response.json()
       .then((data) => {
           if (data.status !== "ok") {
@@ -107,4 +107,4 @@ function General() {
     )
 }
 
-export default General;
+export default Health;
