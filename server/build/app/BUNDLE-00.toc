@@ -1,0 +1,3 @@
+([('app',
+   '/Users/ntioncap/repos/flask-news-app/server/dist/app',
+   'EXECUTABLE')],)
