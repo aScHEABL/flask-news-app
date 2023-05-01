@@ -7,6 +7,9 @@ import urllib.request
 from urllib.parse import urlparse
 import json
 
+# Performance improvements
+from multiprocessing import cpu_count
+
 # 初始化Flask，並且允許Cross-Origin Resource Sharing
 app = Flask(__name__)
 CORS(app)
@@ -82,4 +85,5 @@ def display_other_news_category(news_category):
     return fetch_data_from_api(news_category)
   
 if __name__ == "__main__":
-    app.run(debug = True)
+    # app.run(debug = True)
+    app.run(host='0.0.0.0', port=5000, threaded=False, processes=50)
