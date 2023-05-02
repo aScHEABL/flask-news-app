@@ -12,7 +12,7 @@ function Sports() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      fetch("/sports")
+      fetch("http://snowhouse.myftp.org:5000/sports")
       .then((response) => response.json()
       .then((data) => {
           if (data.status !== "ok") {

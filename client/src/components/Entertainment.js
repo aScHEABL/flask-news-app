@@ -12,7 +12,7 @@ function Entertainment() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      fetch("/entertainment")
+      fetch("http://snowhouse.myftp.org:5000/entertainment")
       .then((response) => response.json()
       .then((data) => {
           if (data.status !== "ok") {

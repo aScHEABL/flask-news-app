@@ -12,7 +12,7 @@ function Business() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      fetch("/business")
+      fetch("http://snowhouse.myftp.org:5000/business")
       .then((response) => response.json()
       .then((data) => {
           if (data.status !== "ok") {
