@@ -22,9 +22,6 @@ function App() {
       xl: '80em', // 1280px
       '2xl': '96em', // 1536px
      }}>
-      {/* <Helmet>
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
-      </Helmet> */}
       <Navbar />
       <Routes>
         <Route path="/" element={<Navigate to="/general" />} />
