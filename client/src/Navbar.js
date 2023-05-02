@@ -1,5 +1,6 @@
 import React from "react";
-import { Flex, 
+import { 
+    Flex, 
     Container, 
     Breadcrumb,
     BreadcrumbItem,
@@ -8,16 +9,20 @@ import { Flex,
     Input,
     Button,
     IconButton,
+    Text
  } from "@chakra-ui/react";
  import { SearchIcon } from '@chakra-ui/icons'
+ import { Link } from "react-router-dom";
 
 function Navbar() {
     return (
-        <Flex as='header' wrap='wrap' 
+        <Flex as='header' wrap='wrap' justify='center'
         w={{
             sm: '30em', // 480px
             md: '48em', // 768px
-            
+            lg: '62em', // 992px
+            xl: '80em', // 1280px
+            '2xl': '96em', // 1536px
         }}>
             <Container centerContent='true' maxW='md'>
                 <svg
@@ -57,44 +62,22 @@ function Navbar() {
                     </g>
                 </svg>
             </Container>
-            <Breadcrumb separator='' overflowX='hidden'
+            <Flex justify='center' gap={8} wrap='wrap' over
             w={{
-                sm: '30em', // 480px
-                md: '48em', // 768px
-                
-            }}>
-                <BreadcrumbItem isCurrentPage minW='max-content'>
-                    <BreadcrumbLink href='#'>頭條新聞</BreadcrumbLink>
-                </BreadcrumbItem>
-
-                <BreadcrumbItem>
-                    <BreadcrumbLink href='#' minW='max-content'>政治與政策</BreadcrumbLink>
-                </BreadcrumbItem>
-
-                <BreadcrumbItem>
-                    <BreadcrumbLink href='#' minW='max-content'>全球與區域</BreadcrumbLink>
-                </BreadcrumbItem>
-
-                <BreadcrumbItem>
-                    <BreadcrumbLink href='#' minW='max-content'>社會與公眾</BreadcrumbLink>
-                </BreadcrumbItem>
-
-                <BreadcrumbItem>
-                    <BreadcrumbLink href='#' minW='max-content'>財經與商業</BreadcrumbLink>
-                </BreadcrumbItem>
-
-                <BreadcrumbItem>
-                    <BreadcrumbLink href='#' minW='max-content'>藝術與文化</BreadcrumbLink>
-                </BreadcrumbItem>
-
-                <BreadcrumbItem>
-                    <BreadcrumbLink href='#' minW='max-content'>教育與知識</BreadcrumbLink>
-                </BreadcrumbItem>
-
-                <BreadcrumbItem>
-                    <BreadcrumbLink href='#' minW='max-content'>生活與休閒</BreadcrumbLink>
-                </BreadcrumbItem>
-            </Breadcrumb>
+            sm: '30em', // 480px
+            md: '48em', // 768px
+            lg: '62em', // 992px
+            xl: '80em', // 1280px
+            '2xl': '96em', // 1536px
+        }}>
+                <Text fontSize='2xl' as={Link} to='/general'>頭條</Text>
+                <Text fontSize='2xl' as={Link} to='/science'>科學</Text>
+                <Text fontSize='2xl' as={Link} to='technology'>科技</Text>
+                <Text fontSize='2xl' as={Link} to='sports'>運動</Text>
+                <Text fontSize='2xl' as={Link} to='business'>財經</Text>
+                <Text fontSize='2xl' as={Link} to='entertainment'>娛樂</Text>
+                <Text fontSize='2xl' as={Link} to='health'>健康</Text>
+            </Flex>
             <Flex as='form' centerContent='true' justifyContent='flex-end' gap='2' minW='100%'>
                 {/* <Input width='auto' />
                 <Button colorScheme='blue'>Button</Button> */}
