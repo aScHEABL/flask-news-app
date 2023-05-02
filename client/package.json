@@ -2,7 +2,8 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://aScHEABL.github.io/flask-news-app",
+  "homepage": "./",
+  "proxy":"http://ywitific.pythonanywhere.com/",
   "dependencies": {
     "@chakra-ui/icons": "^2.0.18",
     "@chakra-ui/react": "^2.5.5",
