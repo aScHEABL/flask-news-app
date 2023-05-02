@@ -1,15 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { Flex, Card, CardHeader, Avatar, Box, Heading
 , Text, IconButton, CardBody, Image, CardFooter, Button,
-Stack, Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react';
+Stack, Skeleton, SkeletonCircle, SkeletonText, useMediaQuery } from '@chakra-ui/react';
 import { BiLike, BiChat, BiShare } from 'react-icons/bi';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
 let ifFetchSucceed = true;
 
 function General() {
+    const [isMobile] = useMediaQuery("(max-width: 768px)")
     const [news, setNews] = useState({articles: []});
     const [loading, setLoading] = useState(true);
+
+    const desktopDevice = 
+    <Box>
+            <Box padding='6' boxShadow='lg' bg='white' height='80vh'
+            w={{
+            sm: '30em', // 480px
+            md: '48em', // 768px
+            lg: '62em', // 992px
+            xl: '80em', // 1280px
+            '2xl': '96em', // 1536px
+        }}>
+                <SkeletonCircle size='10' />
+                <SkeletonText mt='4' noOfLines={12} spacing='4' skeletonHeight='8' />
+            </Box>
+    </Box>
+
+    const mobileDevice =
+    <Box>
+            <Box padding='6' boxShadow='lg' bg='white' height='80vh'>
+                <SkeletonCircle size='10' />
+                <SkeletonText mt='4' noOfLines={8} spacing='4' skeletonHeight='4' />
+            </Box>
+    </Box>
 
     useEffect(() => {
       fetch("http://ywitific.pythonanywhere.com/general")
@@ -27,7 +51,7 @@ function General() {
     }, [])
   
     const nodes = news.articles.map((news) => 
-            <Card maxW='md'>
+            <Card maxW='md'>const [isMobile] = useMediaQuery("(max-width: 768px)")
                 <CardHeader>
                 <Flex spacing='4'>
                     <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
@@ -84,7 +108,7 @@ function General() {
     return (
         (loading) ? 
         <Box>
-            <Box padding='6' boxShadow='lg' bg='white' 
+            <Box padding='6' boxShadow='lg' bg='white' height='80vh'
             w={{
             sm: '30em', // 480px
             md: '48em', // 768px
@@ -93,7 +117,7 @@ function General() {
             '2xl': '96em', // 1536px
         }}>
                 <SkeletonCircle size='10' />
-                <SkeletonText mt='4' noOfLines={4} spacing='4' skeletonHeight='2' />
+                <SkeletonText mt='4' noOfLines={12} spacing='4' skeletonHeight='8' />
             </Box>
         </Box> :
         (ifFetchSucceed) ? 
