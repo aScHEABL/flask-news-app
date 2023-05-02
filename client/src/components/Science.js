@@ -12,7 +12,7 @@ function Science() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      fetch("http://snowhouse.myftp.org:5000/science")
+      fetch("/science")
       .then((response) => response.json()
       .then((data) => {
           if (data.status !== "ok") {

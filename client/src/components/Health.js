@@ -12,7 +12,7 @@ function Health() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      fetch("http://snowhouse.myftp.org:5000/health")
+      fetch("/health")
       .then((response) => response.json()
       .then((data) => {
           if (data.status !== "ok") {

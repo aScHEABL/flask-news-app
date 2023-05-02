@@ -12,7 +12,7 @@ function Tech() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      fetch("http://snowhouse.myftp.org:5000/technology")
+      fetch("/technology")
       .then((response) => response.json()
       .then((data) => {
           if (data.status !== 200) {

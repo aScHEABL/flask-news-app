@@ -1,5 +1,4 @@
 import './global.css'
-import { Helmet } from "react-helmet";
 import { Container } from "@chakra-ui/react";
 import React from "react";
 import Navbar from "./Navbar";
