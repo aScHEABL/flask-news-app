@@ -2,7 +2,6 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://snowhouse.myftp.org:5000/",
   "homepage": "http://aScHEABL.github.io/flask-news-app",
   "dependencies": {
     "@chakra-ui/icons": "^2.0.18",
@@ -16,6 +15,7 @@
     "framer-motion": "^6.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
     "react-icons": "^3.11.0",
     "react-router": "^6.11.0",
     "react-router-dom": "^6.11.0",
