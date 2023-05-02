@@ -7,12 +7,14 @@ import urllib.request
 from urllib.parse import urlparse
 import json
 
-# Performance improvements
-from multiprocessing import cpu_count
-
 # 初始化Flask，並且允許Cross-Origin Resource Sharing
 app = Flask(__name__)
 CORS(app)
+
+# Set a user agent to make the request appear as if it is coming from a web browser
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+}
 
 # Questionable code, deprecrated
 def get_news_provider_name(url):
@@ -25,18 +27,13 @@ def get_news_provider(url):
     domain = urlparse(url).netloc
     news_provider_url = f'https://{domain}'
     return news_provider_url
-    
+
 
 def get_redirect_url(url):
     redirect =  requests.get(url)
     return redirect.url
 
 def get_preview_image_url(url):
-    # Set a user agent to make the request appear as if it is coming from a web browser
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
-        }
-    
     # Request the URL and get the HTML content
     req = urllib.request.Request(url, headers=headers)
     html_content = urllib.request.urlopen(req).read()
@@ -70,8 +67,8 @@ def fetch_data_from_api(news_category):
 
     return json_dict
 
-        
-    
+
+
 
 
 @app.route('/general', methods=['GET', 'POST'])
@@ -83,7 +80,7 @@ def index():
 @app.route('/<news_category>')
 def display_other_news_category(news_category):
     return fetch_data_from_api(news_category)
-  
+
 if __name__ == "__main__":
     # app.run(debug = True)
     app.run(host='0.0.0.0', port=5000, threaded=False, processes=50)
