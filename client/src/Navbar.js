@@ -9,12 +9,41 @@ import {
     Input,
     Button,
     IconButton,
-    Text
+    Text,
+    useMediaQuery
  } from "@chakra-ui/react";
  import { SearchIcon } from '@chakra-ui/icons'
  import { Link } from "react-router-dom";
 
 function Navbar() {
+    const [isMobile] = useMediaQuery("(max-width: 768px)")
+    const desktopDevice = 
+                <Flex justify='center' gap={8} wrap='wrap'
+                    w={{
+                    sm: '30em', // 480px
+                    md: '48em', // 768px
+                    lg: '62em', // 992px
+                    xl: '80em', // 1280px
+                    '2xl': '96em', // 1536px
+                    }}>
+                    <Text fontSize='2xl' as={Link} to='/general'>頭條</Text>
+                    <Text fontSize='2xl' as={Link} to='/science'>科學</Text>
+                    <Text fontSize='2xl' as={Link} to='technology'>科技</Text>
+                    <Text fontSize='2xl' as={Link} to='sports'>運動</Text>
+                    <Text fontSize='2xl' as={Link} to='business'>財經</Text>
+                    <Text fontSize='2xl' as={Link} to='entertainment'>娛樂</Text>
+                    <Text fontSize='2xl' as={Link} to='health'>健康</Text>
+                </Flex>
+    const mobileDevice = 
+                <Flex justify='center' gap={2} wrap='wrap'>
+                    <Text fontSize='xl' as={Link} to='/general'>頭條</Text>
+                    <Text fontSize='xl' as={Link} to='/science'>科學</Text>
+                    <Text fontSize='xl' as={Link} to='technology'>科技</Text>
+                    <Text fontSize='xl' as={Link} to='sports'>運動</Text>
+                    <Text fontSize='xl' as={Link} to='business'>財經</Text>
+                    <Text fontSize='xl' as={Link} to='entertainment'>娛樂</Text>
+                    <Text fontSize='xl' as={Link} to='health'>健康</Text>
+                </Flex>
     return (
         <Flex as='header' wrap='wrap' justify='center'
         w={{
@@ -62,22 +91,8 @@ function Navbar() {
                     </g>
                 </svg>
             </Container>
-            <Flex justify='center' gap={8} wrap='wrap' over
-            w={{
-            sm: '30em', // 480px
-            md: '48em', // 768px
-            lg: '62em', // 992px
-            xl: '80em', // 1280px
-            '2xl': '96em', // 1536px
-        }}>
-                <Text fontSize='2xl' as={Link} to='/general'>頭條</Text>
-                <Text fontSize='2xl' as={Link} to='/science'>科學</Text>
-                <Text fontSize='2xl' as={Link} to='technology'>科技</Text>
-                <Text fontSize='2xl' as={Link} to='sports'>運動</Text>
-                <Text fontSize='2xl' as={Link} to='business'>財經</Text>
-                <Text fontSize='2xl' as={Link} to='entertainment'>娛樂</Text>
-                <Text fontSize='2xl' as={Link} to='health'>健康</Text>
-            </Flex>
+            { isMobile ? mobileDevice : desktopDevice }
+            
             <Flex as='form' centerContent='true' justifyContent='flex-end' gap='2' minW='100%'>
                 {/* <Input width='auto' />
                 <Button colorScheme='blue'>Button</Button> */}

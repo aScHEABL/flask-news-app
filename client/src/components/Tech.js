@@ -12,7 +12,7 @@ function Tech() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      fetch("/technology")
+      fetch("http://ywitific.pythonanywhere.com/technology")
       .then((response) => response.json()
       .then((data) => {
           if (data.status !== 200) {
