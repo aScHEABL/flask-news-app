@@ -20,17 +20,34 @@ import {
     DrawerOverlay,
     DrawerContent,
     DrawerCloseButton,
+    Tag,
+    TagLabel,
+    TagLeftIcon,
+    TagRightIcon,
+    TagCloseButton,
  } from "@chakra-ui/react";
  import { SearchIcon } from '@chakra-ui/icons'
  import { Link } from "react-router-dom";
  import { LoremIpsum, Avatar } from 'react-lorem-ipsum';
- import React from "react";
+ import React, { useState } from "react";
+ import {v4 as uuidv4} from "uuid";
+ import { FaHashtag } from 'react-icons/fa';
 
 function Navbar() {
 
+    const [search, setSearch] = useState('');
     const [isMobile] = useMediaQuery("(max-width: 768px)")
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
+
+    const handleChange = () => {
+        setSearch()
+    }
+
+    const handleClick = () => {
+
+    }
+
     const desktopDevice = 
                 <Flex justify='center' gap={8} wrap='wrap'
                     w={{
@@ -70,8 +87,18 @@ function Navbar() {
                         <DrawerHeader>搜尋</DrawerHeader>
 
                         <DrawerBody>
-                            <Input placeholder='今天想看什麼新聞?' />
-                            <label>#川普拜登大選</label>
+                            <Input placeholder='今天想看什麼新聞?' value={search} onChange={(e) => handleChange(e.target.value)} />
+                            <Box w='100%' h='5%'></Box>
+                            <Flex gap={4}>
+                                <Tag onClick={(e) => handleClick(e.target.value)} w='-moz-fit-content' key={uuidv4()} variant='subtle' colorScheme='cyan'>
+                                    <TagLeftIcon boxSize='12px' as={FaHashtag} />
+                                    <TagLabel>川普拜登大選</TagLabel>
+                                </Tag>
+                                <Tag w='-moz-fit-content' key={uuidv4()} variant='subtle' colorScheme='cyan'>
+                                    <TagLeftIcon boxSize='12px' as={FaHashtag} />
+                                    <TagLabel>俄烏戰爭</TagLabel>
+                                </Tag>
+                            </Flex>
                         </DrawerBody>
 
                         <DrawerFooter>
