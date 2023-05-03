@@ -1,5 +1,5 @@
-import React from "react";
 import { 
+    Box,
     Flex, 
     Container, 
     Breadcrumb,
@@ -10,13 +10,27 @@ import {
     Button,
     IconButton,
     Text,
-    useMediaQuery
+    useMediaQuery,
+    Collapse,
+    useDisclosure,
+    Drawer,
+    DrawerBody,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
  } from "@chakra-ui/react";
  import { SearchIcon } from '@chakra-ui/icons'
  import { Link } from "react-router-dom";
+ import { LoremIpsum, Avatar } from 'react-lorem-ipsum';
+ import React from "react";
 
 function Navbar() {
+
     const [isMobile] = useMediaQuery("(max-width: 768px)")
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const btnRef = React.useRef()
     const desktopDevice = 
                 <Flex justify='center' gap={8} wrap='wrap'
                     w={{
@@ -43,6 +57,31 @@ function Navbar() {
                     <Text fontSize='xl' as={Link} to='business'>財經</Text>
                     <Text fontSize='xl' as={Link} to='entertainment'>娛樂</Text>
                     <Text fontSize='xl' as={Link} to='health'>健康</Text>
+                    <IconButton w='20%' onClick={onOpen} ef={btnRef} colorScheme='teal' aria-label='Search icon' icon={<SearchIcon />} />
+                    <Drawer
+                        isOpen={isOpen}
+                        placement='right'
+                        onClose={onClose}
+                        finalFocusRef={btnRef}
+                    >
+                        <DrawerOverlay />
+                        <DrawerContent>
+                        <DrawerCloseButton />
+                        <DrawerHeader>搜尋</DrawerHeader>
+
+                        <DrawerBody>
+                            <Input placeholder='今天想看什麼新聞?' />
+                            <label>#川普拜登大選</label>
+                        </DrawerBody>
+
+                        <DrawerFooter>
+                            <Button variant='outline' mr={3} onClick={onClose}>
+                            取消
+                            </Button>
+                            <Button colorScheme='blue'>搜尋</Button>
+                        </DrawerFooter>
+                        </DrawerContent>
+                    </Drawer>
                 </Flex>
     return (
         <Flex as='header' wrap='wrap' justify='center'
@@ -94,9 +133,7 @@ function Navbar() {
             { isMobile ? mobileDevice : desktopDevice }
             
             <Flex as='form' centerContent='true' justifyContent='flex-end' gap='2' minW='100%'>
-                {/* <Input width='auto' />
-                <Button colorScheme='blue'>Button</Button> */}
-                <IconButton aria-label='Search icon' icon={<SearchIcon />} />
+                
             </Flex>
         </Flex>
     )
