@@ -29,24 +29,40 @@ import {
  import { SearchIcon } from '@chakra-ui/icons'
  import { Link } from "react-router-dom";
  import { LoremIpsum, Avatar } from 'react-lorem-ipsum';
- import React, { useState } from "react";
+ import React, { useState, useRef } from "react";
  import {v4 as uuidv4} from "uuid";
  import { FaHashtag } from 'react-icons/fa';
 
 function Navbar() {
+    const hashtagsArray = ["拜登川普大選", "俄烏戰爭", "NCC", "詐騙", "台灣",
+"墜樓", "美國", "中國", "俄羅斯", "墜樓", "車禍", "通緝", "恐嚇", "國民黨", "柯文哲", "侯友宜"]
 
     const [search, setSearch] = useState('');
     const [isMobile] = useMediaQuery("(max-width: 768px)")
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const btnRef = React.useRef()
+    const searchBtnHome = useRef(null);
+    const hashtagRefs = useRef([]);
 
     const handleChange = () => {
-        setSearch()
+        setSearch();
     }
 
-    const handleClick = () => {
-
+    const handleClick = (refs, index) => {
+        const searchValue = refs.current[index].innerText;
+        setSearch(searchValue);
     }
+
+    const hashtagNodes = hashtagsArray.map((item, index) => {
+        return (
+            <Tag onClick={() => handleClick(hashtagRefs, index)} w='-moz-fit-content' key={uuidv4()} variant='subtle' colorScheme='cyan'>
+                <TagLeftIcon boxSize='12px' as={FaHashtag} />
+                <TagLabel 
+                ref={(e) => {
+                    hashtagRefs.current[index] = e;
+                }}>{item}</TagLabel>
+            </Tag>
+        )
+    })
 
     const desktopDevice = 
                 <Flex justify='center' gap={8} wrap='wrap'
@@ -74,12 +90,12 @@ function Navbar() {
                     <Text fontSize='xl' as={Link} to='business'>財經</Text>
                     <Text fontSize='xl' as={Link} to='entertainment'>娛樂</Text>
                     <Text fontSize='xl' as={Link} to='health'>健康</Text>
-                    <IconButton w='20%' onClick={onOpen} ef={btnRef} colorScheme='teal' aria-label='Search icon' icon={<SearchIcon />} />
+                    <IconButton w='20%' onClick={onOpen} ef={searchBtnHome} colorScheme='teal' aria-label='Search icon' icon={<SearchIcon />} />
                     <Drawer
                         isOpen={isOpen}
                         placement='right'
                         onClose={onClose}
-                        finalFocusRef={btnRef}
+                        finalFocusRef={searchBtnHome}
                     >
                         <DrawerOverlay />
                         <DrawerContent>
@@ -89,15 +105,16 @@ function Navbar() {
                         <DrawerBody>
                             <Input placeholder='今天想看什麼新聞?' value={search} onChange={(e) => handleChange(e.target.value)} />
                             <Box w='100%' h='5%'></Box>
-                            <Flex gap={4}>
-                                <Tag onClick={(e) => handleClick(e.target.value)} w='-moz-fit-content' key={uuidv4()} variant='subtle' colorScheme='cyan'>
+                            <Flex gap={4} wrap='wrap'>
+                                {/* <Tag onClick={() => handleClick(hashtagBtn_0)} w='-moz-fit-content' key={uuidv4()} variant='subtle' colorScheme='cyan'>
                                     <TagLeftIcon boxSize='12px' as={FaHashtag} />
-                                    <TagLabel>川普拜登大選</TagLabel>
+                                    <TagLabel ref={hashtagBtn_0}>川普拜登大選</TagLabel>
                                 </Tag>
-                                <Tag w='-moz-fit-content' key={uuidv4()} variant='subtle' colorScheme='cyan'>
+                                <Tag onClick={() => handleClick(hashtagBtn_1)} w='-moz-fit-content' key={uuidv4()} variant='subtle' colorScheme='cyan'>
                                     <TagLeftIcon boxSize='12px' as={FaHashtag} />
-                                    <TagLabel>俄烏戰爭</TagLabel>
-                                </Tag>
+                                    <TagLabel ref={hashtagBtn_1}>俄烏戰爭</TagLabel>
+                                </Tag> */}
+                                {hashtagNodes}
                             </Flex>
                         </DrawerBody>
 
@@ -105,7 +122,7 @@ function Navbar() {
                             <Button variant='outline' mr={3} onClick={onClose}>
                             取消
                             </Button>
-                            <Button colorScheme='blue'>搜尋</Button>
+                            <Button onClick={onClose} colorScheme='blue'>搜尋</Button>
                         </DrawerFooter>
                         </DrawerContent>
                     </Drawer>
