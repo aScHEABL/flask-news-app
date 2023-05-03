@@ -4,6 +4,7 @@ import { Flex, Card, CardHeader, Avatar, Box, Heading
 Stack, Skeleton, SkeletonCircle, SkeletonText, useMediaQuery } from '@chakra-ui/react';
 import { BiLike, BiChat, BiShare } from 'react-icons/bi';
 import { BsThreeDotsVertical } from 'react-icons/bs';
+import {v4 as uuidv4} from "uuid";
 
 let ifFetchSucceed = true;
 
@@ -12,6 +13,7 @@ function General() {
     const [news, setNews] = useState({articles: []});
     const [loading, setLoading] = useState(true);
 
+    
     const desktopDevice = 
     <Box>
             <Box padding='6' boxShadow='lg' bg='white' height='80vh'
@@ -29,14 +31,16 @@ function General() {
 
     const mobileDevice =
     <Box>
-            <Box padding='6' boxShadow='lg' bg='white' height='80vh'>
+            <Box padding='6' boxShadow='lg' bg='white' height='80vh' w='70vw'>
                 <SkeletonCircle size='10' />
-                <SkeletonText mt='4' noOfLines={8} spacing='4' skeletonHeight='4' />
+                <SkeletonText mt='4' noOfLines={12} spacing='4' skeletonHeight='6' />
             </Box>
     </Box>
 
+const loadingDisplay = isMobile ? mobileDevice : desktopDevice;
+
     useEffect(() => {
-      fetch("http://ywitific.pythonanywhere.com/general")
+      fetch("https://flash-griffin-385502.df.r.appspot.com/general")
       .then((response) => response.json()
       .then((data) => {
           if (data.status !== "ok") {
@@ -46,12 +50,12 @@ function General() {
         setNews(data);
         setLoading(false);
         console.log(data);
-      })
-      )
-    }, [])
-  
-    const nodes = news.articles.map((news) => 
-            <Card maxW='md'>const [isMobile] = useMediaQuery("(max-width: 768px)")
+    })
+    )
+}, [])
+
+const nodes = news.articles.map((news) => 
+<Card key={uuidv4()} maxW='md'>
                 <CardHeader>
                 <Flex spacing='4'>
                     <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
@@ -107,19 +111,7 @@ function General() {
 
     return (
         (loading) ? 
-        <Box>
-            <Box padding='6' boxShadow='lg' bg='white' height='80vh'
-            w={{
-            sm: '30em', // 480px
-            md: '48em', // 768px
-            lg: '62em', // 992px
-            xl: '80em', // 1280px
-            '2xl': '96em', // 1536px
-        }}>
-                <SkeletonCircle size='10' />
-                <SkeletonText mt='4' noOfLines={12} spacing='4' skeletonHeight='8' />
-            </Box>
-        </Box> :
+        loadingDisplay :
         (ifFetchSucceed) ? 
         <Flex wrap='wrap' justify='center' gap='6'>
             { nodes }
