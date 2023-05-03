@@ -33,7 +33,7 @@ function General() {
     <Box>
             <Box padding='6' boxShadow='lg' bg='white' height='80vh' w='70vw'>
                 <SkeletonCircle size='10' />
-                <SkeletonText mt='4' noOfLines={14} spacing='4' skeletonHeight='6' />
+                <SkeletonText mt='4' noOfLines={12} spacing='4' skeletonHeight='6' />
             </Box>
     </Box>
 
