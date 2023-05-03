@@ -1,33 +1,61 @@
 import React, { useEffect, useState } from "react";
 import { Flex, Card, CardHeader, Avatar, Box, Heading
 , Text, IconButton, CardBody, Image, CardFooter, Button,
-Stack, Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react';
+Stack, Skeleton, SkeletonCircle, SkeletonText, useMediaQuery } from '@chakra-ui/react';
 import { BiLike, BiChat, BiShare } from 'react-icons/bi';
 import { BsThreeDotsVertical } from 'react-icons/bs';
+import {v4 as uuidv4} from "uuid";
 
 let ifFetchSucceed = true;
 
 function Science() {
-    const [scienceNews, setScienceNews] = useState({articles: []});
+    const [isMobile] = useMediaQuery("(max-width: 768px)")
+    const [news, setNews] = useState({articles: []});
     const [loading, setLoading] = useState(true);
 
+    
+    const desktopDevice = 
+    <Box>
+            <Box padding='6' boxShadow='lg' bg='white' height='80vh'
+            w={{
+            sm: '30em', // 480px
+            md: '48em', // 768px
+            lg: '62em', // 992px
+            xl: '80em', // 1280px
+            '2xl': '96em', // 1536px
+        }}>
+                <SkeletonCircle size='10' />
+                <SkeletonText mt='4' noOfLines={12} spacing='4' skeletonHeight='8' />
+            </Box>
+    </Box>
+
+    const mobileDevice =
+    <Box>
+            <Box padding='6' boxShadow='lg' bg='white' height='80vh' w='70vw'>
+                <SkeletonCircle size='10' />
+                <SkeletonText mt='4' noOfLines={14} spacing='4' skeletonHeight='6' />
+            </Box>
+    </Box>
+
+const loadingDisplay = isMobile ? mobileDevice : desktopDevice;
+
     useEffect(() => {
-      fetch("http://ywitific.pythonanywhere.com/science")
+      fetch("https://flash-griffin-385502.df.r.appspot.com/science")
       .then((response) => response.json()
       .then((data) => {
           if (data.status !== "ok") {
             ifFetchSucceed = false
             return;
         }
-        setScienceNews(data);
+        setNews(data);
         setLoading(false);
         console.log(data);
-      })
-      )
-    }, [])
-  
-    const nodes = scienceNews.articles.map((news) => 
-            <Card maxW='md'>
+    })
+    )
+}, [])
+
+const nodes = news.articles.map((news) => 
+<Card key={uuidv4()} maxW='md'>
                 <CardHeader>
                 <Flex spacing='4'>
                     <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
@@ -83,19 +111,7 @@ function Science() {
 
     return (
         (loading) ? 
-        <Box>
-            <Box padding='6' boxShadow='lg' bg='white' 
-            w={{
-            sm: '30em', // 480px
-            md: '48em', // 768px
-            lg: '62em', // 992px
-            xl: '80em', // 1280px
-            '2xl': '96em', // 1536px
-        }}>
-                <SkeletonCircle size='10' />
-                <SkeletonText mt='4' noOfLines={4} spacing='4' skeletonHeight='2' />
-            </Box>
-        </Box> :
+        loadingDisplay :
         (ifFetchSucceed) ? 
         <Flex wrap='wrap' justify='center' gap='6'>
             { nodes }
