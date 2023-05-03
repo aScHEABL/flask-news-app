@@ -1,5 +1,5 @@
 import './global.css'
-import { Container } from "@chakra-ui/react";
+import { Container, Flex } from "@chakra-ui/react";
 import React from "react";
 import Navbar from "./Navbar";
 import { Navigate, Route, Routes } from "react-router-dom";
@@ -32,7 +32,11 @@ function App() {
         <Route path='/business' element={<Business />} />
         <Route path='/entertainment' element={<Entertainment />} />
         <Route path='/health' element={<Health />} />
-        <Route path="*" element={<div><h2>404 Page not found</h2></div>} />
+        <Route path="*" element={
+        <Flex justify='center'>
+          <h2>404 沒有此頁面</h2>
+          <h2>404 Page not found</h2>
+        </Flex>} />
       </Routes>
       
     </Container>
