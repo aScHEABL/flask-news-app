@@ -1,7 +1,7 @@
 import './global.css'
 import { Container, Flex } from "@chakra-ui/react";
 import React from "react";
-import Navbar from "./Navbar";
+import Navbar from "./components/Navbar";
 import { Navigate, Route, Routes } from "react-router-dom";
 import General from './components/General';
 import Science from './components/Science';
