@@ -49,7 +49,7 @@ const loadingDisplay = isMobile ? mobileDevice : desktopDevice;
         }
         setNews(data);
         setLoading(false);
-        console.log(data);
+        // console.log(data);
     })
     )
 }, [])
