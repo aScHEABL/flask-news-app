@@ -10,6 +10,7 @@ import Sports from './components/Sports';
 import Business from './components/Business';
 import Entertainment from './components/Entertainment';
 import Health from './components/Health';
+import SearchResult from './components/SearchResult';
 
 function App() {
   
@@ -32,6 +33,7 @@ function App() {
         <Route path='/business' element={<Business />} />
         <Route path='/entertainment' element={<Entertainment />} />
         <Route path='/health' element={<Health />} />
+        {/* <Route path='/search-results' element={<SearchResult />} /> */}
         <Route path="*" element={
         <Flex justify='center'>
           <h2>404 沒有此頁面</h2>

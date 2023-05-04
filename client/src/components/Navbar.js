@@ -27,9 +27,9 @@ import {
     TagCloseButton,
  } from "@chakra-ui/react";
  import { SearchIcon } from '@chakra-ui/icons'
- import { Link } from "react-router-dom";
+ import { Link, json } from "react-router-dom";
  import { LoremIpsum, Avatar } from 'react-lorem-ipsum';
- import React, { useState, useRef } from "react";
+ import React, { useState, useRef, useEffect } from "react";
  import {v4 as uuidv4} from "uuid";
  import { FaHashtag } from 'react-icons/fa';
 
@@ -37,7 +37,8 @@ function Navbar() {
     const hashtagsArray = ["拜登川普大選", "俄烏戰爭", "NCC", "詐騙", "台灣",
 "墜樓", "美國", "中國", "俄羅斯", "墜樓", "車禍", "通緝", "恐嚇", "國民黨", "柯文哲", "侯友宜"]
 
-    const [search, setSearch] = useState('');
+    const [searchKeyword, setSearchKeyword] = useState('');
+    const [searchResult, setSearchResult] = useState({});
     const [isMobile] = useMediaQuery("(max-width: 768px)")
     const { isOpen, onOpen, onClose } = useDisclosure()
     const searchBtnHome = useRef(null);
@@ -45,16 +46,36 @@ function Navbar() {
 
     const handleSearch = () => {
         console.log("handle search");
-        onClose();
+
+        const dummyData = {
+            "fakeData": "This is fake data"
+        }
+
+        fetch("http://127.0.0.1:5000/postSearchKeywords", {
+            headers: { 'Content-Type': 'application/json' },
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify(dummyData)
+        })
+
+        fetch("http://127.0.0.1:5000/getSearchResults")
+        .then((response) => response.json())
+        .then((data) => setSearchResult(data))
+
+        console.log(searchResult);
     }
 
     const handleChange = () => {
-        setSearch();
+        setSearchKeyword();
     }
 
     const handleClick = (refs, index) => {
         const searchValue = refs.current[index].innerText;
-        setSearch(searchValue);
+        setSearchKeyword(searchValue);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
     }
 
     const hashtagNodes = hashtagsArray.map((item, index) => {
@@ -96,34 +117,47 @@ function Navbar() {
                     <Text fontSize='xl' as={Link} to='entertainment'>娛樂</Text>
                     <Text fontSize='xl' as={Link} to='health'>健康</Text>
                     <IconButton w='20%' onClick={onOpen} ef={searchBtnHome} colorScheme='teal' aria-label='Search icon' icon={<SearchIcon />} />
-                    <Drawer
-                        isOpen={isOpen}
-                        placement='right'
-                        onClose={onClose}
-                        finalFocusRef={searchBtnHome}
-                    >
-                        <DrawerOverlay />
-                        <DrawerContent>
-                        <DrawerCloseButton />
-                        <DrawerHeader>搜尋</DrawerHeader>
+                    <form onSubmit={(e) => handleSubmit()}>
+                        <Drawer
+                            isOpen={isOpen}
+                            placement='right'
+                            onClose={onClose}
+                            finalFocusRef={searchBtnHome}
+                        >
+                            <DrawerOverlay />
+                            <DrawerContent>
+                            <DrawerCloseButton />
+                            <DrawerHeader>搜尋</DrawerHeader>
 
-                        <DrawerBody>
-                            <Input placeholder='今天想看什麼新聞?' value={search} onChange={(e) => handleChange(e.target.value)} />
-                            <Box w='100%' h='5%'></Box>
-                            <Flex gap={4} wrap='wrap'>
-                                {hashtagNodes}
-                            </Flex>
-                        </DrawerBody>
+                            <DrawerBody>
+                                <Input placeholder='今天想看什麼新聞?' value={searchKeyword} onChange={(e) => handleChange(e.target.value)} />
+                                <Box w='100%' h='5%'></Box>
+                                <Flex gap={4} wrap='wrap'>
+                                    {hashtagNodes}
+                                </Flex>
+                            </DrawerBody>
 
-                        <DrawerFooter>
-                            <Button variant='outline' mr={3} onClick={onClose}>
-                            取消
-                            </Button>
-                            <Button onClick={() => handleSearch()} colorScheme='blue'>搜尋</Button>
-                        </DrawerFooter>
-                        </DrawerContent>
-                    </Drawer>
+                            <DrawerFooter>
+                                <Button variant='outline' mr={3} onClick={onClose}>
+                                取消
+                                </Button>
+                                <Button type="submit" onClick={() => handleSearch()} colorScheme='blue'>搜尋</Button>
+                            </DrawerFooter>
+                            </DrawerContent>
+                        </Drawer>
+                    </form>
                 </Flex>
+
+    // useEffect(() => {
+    //     const requestOptions = {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ 'searchKeyword': searchKeyword })
+    //     }
+    //     fetch('https://flash-griffin-385502.df.r.appspot.com/search', requestOptions)
+    //     .then((response) => response.json())
+    //     .catch((error) => console.log(error))
+    // })
     return (
         <Flex as='header' wrap='wrap' justify='center'
         w={{

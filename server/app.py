@@ -1,14 +1,12 @@
 # 匯入相關套件
-import requests
-from flask import Flask
-from flask_cors import CORS
+import requests, secrets, json, urllib.request
+from flask import Flask, request
 from bs4 import BeautifulSoup
-import urllib.request
 from urllib.parse import urlparse
-import json
 
 # 初始化Flask，並且允許Cross-Origin Resource Sharing
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16)
 CORS(app)
 
 # Set a user agent to make the request appear as if it is coming from a web browser
@@ -16,15 +14,15 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
 }
 
-def searchNews(keyword):
+def searchNews():
     api_domain = 'https://newsapi.org/v2/top-headlines'
     api_key = 'd060d091ddeb4a18af8a7907ce4b88be'
     country_code = 'tw'
-    api_url = f'{api_domain}?apiKey={api_key}&country={country_code}&q={keyword}'
+    # api_url = f'{api_domain}?apiKey={api_key}&country={country_code}&q={keyword}'
 
     response = requests.get(api_url).text
     json_dict = json.loads(response)
-    return json_dict
+    return 'successful'
 
 # Questionable code, deprecrated
 def get_news_provider_name(url):
@@ -77,10 +75,6 @@ def fetch_data_from_api(news_category):
 
     return json_dict
 
-
-
-
-
 @app.route('/general', methods=['GET'])
 @app.route('/', methods=['GET'])
 def index():
@@ -91,10 +85,16 @@ def index():
 def display_other_news_category(news_category):
     return fetch_data_from_api(news_category)
 
-@app.route('/search', methods=['POST'])
-def search():
-    
+@app.route('/postSearchKeywords', methods=['POST'])
+def postSearchkeywords():
+    dict = request.json['fakeData']
+    return {'msg': 'data posted successfully'}
+
+@app.route('/getSearchResults', methods=['GET'])
+def getSearchResults():
+    return {'564635454': '5745443'}
+
 
 if __name__ == "__main__":
-    # app.run(debug = True)
-    app.run(host='0.0.0.0', port=5000, threaded=False, processes=50)
+    app.run(debug = True)
+    # app.run(host='0.0.0.0', port=5000, threaded=False, processes=50)
