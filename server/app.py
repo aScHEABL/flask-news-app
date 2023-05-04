@@ -1,6 +1,7 @@
 # 匯入相關套件
 import requests, secrets, json, urllib.request
 from flask import Flask, request
+from flask_cors import CORS
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
@@ -87,12 +88,17 @@ def display_other_news_category(news_category):
 
 @app.route('/postSearchKeywords', methods=['POST'])
 def postSearchkeywords():
-    dict = request.json['fakeData']
+    search_keyword = request.json['fakeData']
+    app.config['search_keyword'] = search_keyword
     return {'msg': 'data posted successfully'}
 
 @app.route('/getSearchResults', methods=['GET'])
 def getSearchResults():
-    return {'564635454': '5745443'}
+    keyword = app.config.get('search_keyword')
+    if keyword is None:
+        return 'search keyword is not found'
+    else:
+        return {'keyword': keyword}
 
 
 if __name__ == "__main__":
