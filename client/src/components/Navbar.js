@@ -60,9 +60,11 @@ function Navbar() {
 
         fetch("http://127.0.0.1:5000/getSearchResults")
         .then((response) => response.json())
-        .then((data) => setSearchResult(data))
-
-        console.log(searchResult);
+        .then((data) => {
+            // console.log(data);
+            setSearchResult(data);
+        })
+        console.log(searchKeyword)
     }
 
     const handleChange = () => {
