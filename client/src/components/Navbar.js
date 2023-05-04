@@ -47,23 +47,20 @@ function Navbar() {
     const handleSearch = () => {
         console.log("handle search");
 
-        const dummyData = {
-            "fakeData": "This is fake data"
+        const postData = {
+            keyword: searchKeyword
         }
 
         fetch("http://127.0.0.1:5000/postSearchKeywords", {
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             mode: 'cors',
-            body: JSON.stringify(dummyData)
+            body: JSON.stringify(postData)
         })
 
         fetch("http://127.0.0.1:5000/getSearchResults")
         .then((response) => response.json())
-        .then((data) => {
-            // console.log(data);
-            setSearchResult(data);
-        })
+        .then((data) => setSearchResult(data))
         console.log(searchKeyword)
     }
 
@@ -118,7 +115,7 @@ function Navbar() {
                     <Text fontSize='xl' as={Link} to='business'>財經</Text>
                     <Text fontSize='xl' as={Link} to='entertainment'>娛樂</Text>
                     <Text fontSize='xl' as={Link} to='health'>健康</Text>
-                    <IconButton w='20%' onClick={onOpen} ef={searchBtnHome} colorScheme='teal' aria-label='Search icon' icon={<SearchIcon />} />
+                    <IconButton w='20%' mb={2} onClick={onOpen} ef={searchBtnHome} colorScheme='teal' aria-label='Search icon' icon={<SearchIcon />} />
                     <form onSubmit={(e) => handleSubmit()}>
                         <Drawer
                             isOpen={isOpen}
