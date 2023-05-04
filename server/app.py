@@ -16,6 +16,16 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
 }
 
+def searchNews(keyword):
+    api_domain = 'https://newsapi.org/v2/top-headlines'
+    api_key = 'd060d091ddeb4a18af8a7907ce4b88be'
+    country_code = 'tw'
+    api_url = f'{api_domain}?apiKey={api_key}&country={country_code}&q={keyword}'
+
+    response = requests.get(api_url).text
+    json_dict = json.loads(response)
+    return json_dict
+
 # Questionable code, deprecrated
 def get_news_provider_name(url):
     response = requests.get(url)
@@ -71,15 +81,19 @@ def fetch_data_from_api(news_category):
 
 
 
-@app.route('/general', methods=['GET', 'POST'])
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/general', methods=['GET'])
+@app.route('/', methods=['GET'])
 def index():
     # 主程式
     return fetch_data_from_api('general')
 
-@app.route('/<news_category>')
+@app.route('/<news_category>', methods=['GET'])
 def display_other_news_category(news_category):
     return fetch_data_from_api(news_category)
+
+@app.route('/search', methods=['POST'])
+def search():
+    
 
 if __name__ == "__main__":
     # app.run(debug = True)
