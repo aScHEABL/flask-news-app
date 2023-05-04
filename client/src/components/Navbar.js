@@ -43,6 +43,11 @@ function Navbar() {
     const searchBtnHome = useRef(null);
     const hashtagRefs = useRef([]);
 
+    const handleSearch = () => {
+        console.log("handle search");
+        onClose();
+    }
+
     const handleChange = () => {
         setSearch();
     }
@@ -106,14 +111,6 @@ function Navbar() {
                             <Input placeholder='今天想看什麼新聞?' value={search} onChange={(e) => handleChange(e.target.value)} />
                             <Box w='100%' h='5%'></Box>
                             <Flex gap={4} wrap='wrap'>
-                                {/* <Tag onClick={() => handleClick(hashtagBtn_0)} w='-moz-fit-content' key={uuidv4()} variant='subtle' colorScheme='cyan'>
-                                    <TagLeftIcon boxSize='12px' as={FaHashtag} />
-                                    <TagLabel ref={hashtagBtn_0}>川普拜登大選</TagLabel>
-                                </Tag>
-                                <Tag onClick={() => handleClick(hashtagBtn_1)} w='-moz-fit-content' key={uuidv4()} variant='subtle' colorScheme='cyan'>
-                                    <TagLeftIcon boxSize='12px' as={FaHashtag} />
-                                    <TagLabel ref={hashtagBtn_1}>俄烏戰爭</TagLabel>
-                                </Tag> */}
                                 {hashtagNodes}
                             </Flex>
                         </DrawerBody>
@@ -122,7 +119,7 @@ function Navbar() {
                             <Button variant='outline' mr={3} onClick={onClose}>
                             取消
                             </Button>
-                            <Button onClick={onClose} colorScheme='blue'>搜尋</Button>
+                            <Button onClick={() => handleSearch()} colorScheme='blue'>搜尋</Button>
                         </DrawerFooter>
                         </DrawerContent>
                     </Drawer>
