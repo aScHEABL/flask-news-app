@@ -27,7 +27,7 @@ import {
     TagCloseButton,
  } from "@chakra-ui/react";
  import { SearchIcon } from '@chakra-ui/icons'
- import { Link, json } from "react-router-dom";
+ import { Link, useNavigate } from "react-router-dom";
  import { LoremIpsum, Avatar } from 'react-lorem-ipsum';
  import React, { useState, useRef, useEffect } from "react";
  import {v4 as uuidv4} from "uuid";
@@ -35,7 +35,7 @@ import {
 
 function Navbar() {
     const hashtagsArray = ["拜登川普大選", "俄烏戰爭", "NCC", "詐騙", "台灣",
-"墜樓", "美國", "中國", "俄羅斯", "墜樓", "車禍", "通緝", "恐嚇", "國民黨", "柯文哲", "侯友宜"]
+"墜樓", "美國", "中國", "俄羅斯", "墜樓", "車禍", "通緝", "恐嚇", "國民黨", "柯文哲", "侯友宜", "Putin"]
 
     const [searchKeyword, setSearchKeyword] = useState('');
     const [searchResult, setSearchResult] = useState({});
@@ -43,25 +43,24 @@ function Navbar() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const searchBtnHome = useRef(null);
     const hashtagRefs = useRef([]);
+    const navigate = useNavigate();
 
     const handleSearch = () => {
         console.log("handle search");
+        onClose();
 
         const postData = {
             keyword: searchKeyword
         }
 
-        fetch("http://127.0.0.1:5000/postSearchKeywords", {
+        fetch("https://flash-griffin-385502.df.r.appspot.com/postSearchKeywords", {
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify(postData)
         })
 
-        fetch("http://127.0.0.1:5000/getSearchResults")
-        .then((response) => response.json())
-        .then((data) => setSearchResult(data))
-        console.log(searchKeyword)
+        navigate('/search-results');
     }
 
     const handleChange = () => {

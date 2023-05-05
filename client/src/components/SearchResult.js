@@ -8,11 +8,10 @@ import {v4 as uuidv4} from "uuid";
 
 let ifFetchSucceed = true;
 
-function General() {
+function SearchResult() {
     const [isMobile] = useMediaQuery("(max-width: 768px)")
     const [news, setNews] = useState({articles: []});
     const [loading, setLoading] = useState(true);
-
     
     const desktopDevice = 
     <Box>
@@ -37,25 +36,20 @@ function General() {
             </Box>
     </Box>
 
-const loadingDisplay = isMobile ? mobileDevice : desktopDevice;
+    const loadingDisplay = isMobile ? mobileDevice : desktopDevice;
 
     useEffect(() => {
-      fetch("http://127.0.0.1:5000/search")
-      .then((response) => response.json()
-      .then((data) => {
-          if (data.status !== "ok") {
-            ifFetchSucceed = false
-            return;
-        }
-        setNews(data);
-        setLoading(false);
-        console.log(data);
-    })
-    )
+        fetch("https://flash-griffin-385502.df.r.appspot.com/getSearchResults")
+        .then((response) => response.json())
+        .then((data) => {
+            setNews(data);
+            setLoading(false);
+            console.log(data);
+        })
 }, [])
 
-const nodes = news.articles.map((news) => 
-<Card key={uuidv4()} maxW='md'>
+        const nodes = news.articles.map((news) => 
+            <Card key={uuidv4()} maxW='md'>
                 <CardHeader>
                 <Flex spacing='4'>
                     <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
@@ -123,4 +117,4 @@ const nodes = news.articles.map((news) =>
     )
 }
 
-export default General;
+export default SearchResult;
