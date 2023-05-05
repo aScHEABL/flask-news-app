@@ -15,16 +15,6 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
 }
 
-def searchNews():
-    api_domain = 'https://newsapi.org/v2/top-headlines'
-    api_key = 'd060d091ddeb4a18af8a7907ce4b88be'
-    country_code = 'tw'
-    # api_url = f'{api_domain}?apiKey={api_key}&country={country_code}&q={keyword}'
-
-    response = requests.get(api_url).text
-    json_dict = json.loads(response)
-    return 'successful'
-
 # Questionable code, deprecrated
 def get_news_provider_name(url):
     response = requests.get(url)
@@ -56,6 +46,19 @@ def get_preview_image_url(url):
         return preview_image['content']
     else:
         return None
+    
+def searchNews(keyword):
+    api_domain = 'https://newsapi.org/v2/everything'
+    api_key = 'd060d091ddeb4a18af8a7907ce4b88be'
+    language_code = 'zh'
+    api_url = f'{api_domain}?q={keyword}&apiKey={api_key}&language={language_code}&pageSize=15'
+
+    response = requests.get(api_url).text
+    json_dict = json.loads(response)
+    for news in json_dict['articles']:
+        news['news_provider_logo'] = 'https://logo.clearbit.com/' + news['source']['name'] + '?size=600'
+
+    return json_dict
 
 def fetch_data_from_api(news_category):
     api_domain = 'https://newsapi.org/v2/top-headlines'
@@ -88,7 +91,9 @@ def display_other_news_category(news_category):
 
 @app.route('/postSearchKeywords', methods=['POST'])
 def postSearchkeywords():
-    search_keyword = request.json['fakeData']
+    # Retrieve json from the client side and get the value stored in the "keyword" key
+    search_keyword = request.json['keyword']
+    # Assign search_keyword value into the app.config object and the value will be accessible everywhere
     app.config['search_keyword'] = search_keyword
     return {'msg': 'data posted successfully'}
 
@@ -96,11 +101,11 @@ def postSearchkeywords():
 def getSearchResults():
     keyword = app.config.get('search_keyword')
     if keyword is None:
-        return 'search keyword is not found'
+        return {'error': 'The search keyword is not found'}
     else:
-        return {'keyword': keyword}
+        return searchNews(keyword)
 
 
 if __name__ == "__main__":
-    app.run(debug = True)
-    # app.run(host='0.0.0.0', port=5000, threaded=False, processes=50)
+    # app.run(debug = True)
+    app.run(host='0.0.0.0', port=5000, threaded=False, processes=50)
