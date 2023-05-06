@@ -34,7 +34,8 @@ import {
     PopoverArrow,
     PopoverCloseButton,
     PopoverAnchor,
-    useColorMode
+    useColorMode,
+    ButtonGroup
  } from "@chakra-ui/react";
  import { SearchIcon, SunIcon, MoonIcon } from '@chakra-ui/icons'
  import { Link, useNavigate } from "react-router-dom";
@@ -132,6 +133,12 @@ function Navbar() {
                                         {hashtagNodes}
                                     </Flex>
                                 </PopoverBody>
+                                <PopoverFooter>
+                                    <ButtonGroup display='flex' justifyContent='center' size='md'>
+                                        <Button colorScheme='green'>取消</Button>
+                                        <Button type="submit" onClick={() => handleSearch()} colorScheme='blue'>搜尋</Button>
+                                    </ButtonGroup>
+                                </PopoverFooter>
                             </PopoverContent>
                         </Popover>
                     </Flex>
