@@ -56,6 +56,9 @@ def searchNews(keyword):
     response = requests.get(api_url).text
     json_dict = json.loads(response)
     for news in json_dict['articles']:
+        news['url'] = get_redirect_url(news['url'])
+        news['urlToImage'] = get_preview_image_url(news['url'])
+        news['news_provider_url'] = get_news_provider(news['url'])
         news['news_provider_logo'] = 'https://logo.clearbit.com/' + news['source']['name'] + '?size=600'
 
     return json_dict
