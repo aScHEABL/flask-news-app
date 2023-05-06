@@ -25,8 +25,18 @@ import {
     TagLeftIcon,
     TagRightIcon,
     TagCloseButton,
+    Popover,
+    PopoverTrigger,
+    PopoverContent,
+    PopoverHeader,
+    PopoverBody,
+    PopoverFooter,
+    PopoverArrow,
+    PopoverCloseButton,
+    PopoverAnchor,
+    useColorMode
  } from "@chakra-ui/react";
- import { SearchIcon } from '@chakra-ui/icons'
+ import { SearchIcon, SunIcon, MoonIcon } from '@chakra-ui/icons'
  import { Link, useNavigate } from "react-router-dom";
  import { LoremIpsum, Avatar } from 'react-lorem-ipsum';
  import React, { useState, useRef, useEffect } from "react";
@@ -34,6 +44,7 @@ import {
  import { FaHashtag } from 'react-icons/fa';
 
 function Navbar() {
+    const {colorMode, toggleColorMode} = useColorMode();
     const hashtagsArray = ["拜登川普大選", "俄烏戰爭", "NCC", "詐騙", "台灣",
 "墜樓", "美國", "中國", "俄羅斯", "墜樓", "車禍", "通緝", "恐嚇", "國民黨", "柯文哲", "侯友宜", "Putin"]
 
@@ -78,7 +89,7 @@ function Navbar() {
 
     const hashtagNodes = hashtagsArray.map((item, index) => {
         return (
-            <Tag onClick={() => handleClick(hashtagRefs, index)} w='-moz-fit-content' key={uuidv4()} variant='subtle' colorScheme='cyan'>
+            <Tag as={Button} onClick={() => handleClick(hashtagRefs, index)} w='-moz-fit-content' key={uuidv4()} variant='subtle' colorScheme='cyan'>
                 <TagLeftIcon boxSize='12px' as={FaHashtag} />
                 <TagLabel 
                 ref={(e) => {
@@ -89,21 +100,41 @@ function Navbar() {
     })
 
     const desktopDevice = 
-                <Flex justify='center' gap={8} wrap='wrap'
-                    w={{
-                    sm: '30em', // 480px
-                    md: '48em', // 768px
-                    lg: '62em', // 992px
-                    xl: '80em', // 1280px
-                    '2xl': '96em', // 1536px
-                    }}>
-                    <Text fontSize='2xl' as={Link} to='/general'>頭條</Text>
-                    <Text fontSize='2xl' as={Link} to='/science'>科學</Text>
-                    <Text fontSize='2xl' as={Link} to='technology'>科技</Text>
-                    <Text fontSize='2xl' as={Link} to='sports'>運動</Text>
-                    <Text fontSize='2xl' as={Link} to='business'>財經</Text>
-                    <Text fontSize='2xl' as={Link} to='entertainment'>娛樂</Text>
-                    <Text fontSize='2xl' as={Link} to='health'>健康</Text>
+                <Flex justify='center' wrap='wrap'>
+                    <Flex justify='center' gap={8}
+                        w={{
+                        sm: '30em', // 480px
+                        md: '48em', // 768px
+                        lg: '62em', // 992px
+                        xl: '80em', // 1280px
+                        '2xl': '96em', // 1536px
+                        }}>
+                        <Text fontSize='2xl' as={Link} to='/general'>頭條</Text>
+                        <Text fontSize='2xl' as={Link} to='/science'>科學</Text>
+                        <Text fontSize='2xl' as={Link} to='technology'>科技</Text>
+                        <Text fontSize='2xl' as={Link} to='sports'>運動</Text>
+                        <Text fontSize='2xl' as={Link} to='business'>財經</Text>
+                        <Text fontSize='2xl' as={Link} to='entertainment'>娛樂</Text>
+                        <Text fontSize='2xl' as={Link} to='health'>健康</Text>
+                    </Flex>
+                    <Flex w='100%' justify='center'>
+                        <Popover>
+                            <PopoverTrigger>
+                                <IconButton w='10%' mb={2} onClick={onOpen} ef={searchBtnHome} colorScheme='teal' aria-label='Search icon' icon={<SearchIcon />} />
+                            </PopoverTrigger>
+                            <PopoverContent p={6}>
+                                <PopoverArrow />
+                                <PopoverCloseButton />
+                                <PopoverBody>
+                                    <Input placeholder='今天想看什麼新聞?' value={searchKeyword} onChange={(e) => handleChange(e.target.value)} />
+                                    <Box w='100%' h='20px'></Box>
+                                    <Flex gap={4} wrap='wrap'>
+                                        {hashtagNodes}
+                                    </Flex>
+                                </PopoverBody>
+                            </PopoverContent>
+                        </Popover>
+                    </Flex>
                 </Flex>
     const mobileDevice = 
                 <Flex justify='center' gap={2} wrap='wrap'>
@@ -126,7 +157,9 @@ function Navbar() {
                             <DrawerContent>
                             <DrawerCloseButton />
                             <DrawerHeader>搜尋</DrawerHeader>
-
+                            <Button pos='absolute' w='25%' top='3' right='39%' onClick={() =>toggleColorMode()}>
+                                {colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
+                            </Button>
                             <DrawerBody>
                                 <Input placeholder='今天想看什麼新聞?' value={searchKeyword} onChange={(e) => handleChange(e.target.value)} />
                                 <Box w='100%' h='5%'></Box>
