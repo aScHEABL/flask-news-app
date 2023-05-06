@@ -3,6 +3,7 @@ import React, { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import App from './App';
 import { HashRouter } from "react-router-dom";
+import theme from './theme';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
@@ -10,8 +11,8 @@ const root = ReactDOM.createRoot(container);
 root.render(
   <StrictMode>
     <HashRouter>
-      <ChakraProvider>
-        <ColorModeScript />
+      <ChakraProvider theme={theme}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <App />
       </ChakraProvider>
     </HashRouter>

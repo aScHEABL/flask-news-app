@@ -1,5 +1,5 @@
 import './global.css'
-import { Container, Flex } from "@chakra-ui/react";
+import { Button, Container, Flex, useColorMode, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 import Navbar from "./components/Navbar";
 import { Navigate, Route, Routes } from "react-router-dom";
@@ -11,9 +11,12 @@ import Business from './components/Business';
 import Entertainment from './components/Entertainment';
 import Health from './components/Health';
 import SearchResult from './components/SearchResult';
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 function App() {
-  
+  const {colorMode, toggleColorMode} = useColorMode();
+  const [isMobile] = useMediaQuery("(max-width: 768px)")
+
   return (
     <Container maxW='120ch' centerContent
     w={{ 
@@ -23,6 +26,13 @@ function App() {
       xl: '80em', // 1280px
       '2xl': '96em', // 1536px
      }}>
+      { (isMobile) ? 
+      <></>  :
+      <Button onClick={() => toggleColorMode()}
+      pos="absolute" top="0" right="0" m="1rem">
+        {colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
+      </Button> 
+      }
       <Navbar />
       <Routes>
         <Route path="/" element={<Navigate to="/general" />} />
