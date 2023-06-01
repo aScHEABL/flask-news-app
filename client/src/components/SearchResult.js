@@ -39,7 +39,7 @@ function SearchResult() {
     const loadingDisplay = isMobile ? mobileDevice : desktopDevice;
 
     useEffect(() => {
-        fetch("https://flash-griffin-385502.df.r.appspot.com/getSearchResults")
+        fetch("http://192.168.142.116:5000/getSearchResults")
         .then((response) => response.json())
         .then((data) => {
             setNews(data);

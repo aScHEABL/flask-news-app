@@ -40,7 +40,7 @@ function General() {
 const loadingDisplay = isMobile ? mobileDevice : desktopDevice;
 
     useEffect(() => {
-      fetch("https://flash-griffin-385502.df.r.appspot.com/general")
+      fetch("http://192.168.142.116:5000/general")
       .then((response) => response.json()
       .then((data) => {
           if (data.status !== "ok") {
